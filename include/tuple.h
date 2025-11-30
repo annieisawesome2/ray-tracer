@@ -39,5 +39,12 @@ Tuple vector(double x, double y, double z);
 // Floating point comparison utility
 bool equal(double a, double b);
 
+// Tuple comparison function
+bool equal(const Tuple& a, const Tuple& b);
+
+// Tuple Operations
+Tuple add(const Tuple& a, const Tuple& b); 
+Tuple subtract(const Tuple& a, const Tuple& b); 
+
 #endif // TUPLE_H
 
