@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include "tuple.h"
+#include <cmath>
 
 TEST_CASE("A tuple with w=1.0 is a point", "[tuple]") {
     Tuple a(4.3, -4.2, 3.1, 1.0);
@@ -99,4 +100,41 @@ TEST_CASE("negating tuples", "[tuple]") {
 
     REQUIRE(negate(v1) == v2);
 }
+
+TEST_CASE("multiply tuples", "[tuple]") {
+    Tuple t1(1, -2, 3, -4);
+    Tuple t2(3.5, -7, 10.5, -14);
+
+    REQUIRE(multiply(t1, 3.5) == t2);
+
+    Tuple t3(1, -2, 3, -4);
+    Tuple t4(0.5, -1, 1.5, -2);
+    REQUIRE(multiply(t3, 0.5) == t4);
+}
+
+TEST_CASE("magnitude of tuples", "[tuple]") {
+    Tuple v1(1, 0, 0, 0);
+    Tuple v2(0, 1, 0, 0);
+    Tuple v3(0, 0, 1, 0);
+    REQUIRE(magnitude(v1) == 1);
+    REQUIRE(magnitude(v2) == 1);
+    REQUIRE(magnitude(v3) == 1);
+
+    Tuple v4(1, 2, 3, 0);
+    Tuple v5(-1, -2, -3, 0);
+    REQUIRE(magnitude(v4) == std::sqrt(14));
+    REQUIRE(magnitude(v5) == std::sqrt(14));
+}
+
+TEST_CASE("normalize vectors", "[tuple]") {
+    Tuple v1(4, 0, 0, 0);
+    Tuple v2(1, 0, 0, 0);
+
+    REQUIRE(normalize(v1) == v2);
+
+    Tuple v3(1, 2, 3, 0);
+    Tuple v4(0.26726, 0.53452, 0.80178, 0);
+    REQUIRE(normalize(v3) == v4);
+}
+
 

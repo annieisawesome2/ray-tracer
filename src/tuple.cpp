@@ -40,3 +40,20 @@ Tuple negate(Tuple& a) {
     return a; 
 } 
 
+Tuple multiply(Tuple&a, double scale) {
+    a.x *= scale; 
+    a.y *= scale; 
+    a.z *= scale; 
+    a.w *= scale; 
+
+    return a; 
+}
+
+double magnitude(const Tuple& a) {
+    return std::sqrt(std::pow(a.x, 2.0) + std::pow(a.y, 2.0) + std::pow(a.z, 2.0) + std::pow(a.w, 2.0));
+}
+
+Tuple normalize(const Tuple& a) {
+    double mag = magnitude(a);
+    return Tuple(a.x / mag, a.y / mag, a.z / mag, a.w / mag);
+}

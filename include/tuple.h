@@ -46,6 +46,9 @@ bool equal(const Tuple& a, const Tuple& b);
 Tuple add(const Tuple& a, const Tuple& b); 
 Tuple subtract(const Tuple& a, const Tuple& b); 
 Tuple negate(Tuple& a); 
+Tuple multiply(Tuple& a, double scale); 
+double magnitude(const Tuple& a); 
+Tuple normalize(const Tuple& a); 
 
 #endif // TUPLE_H
 
