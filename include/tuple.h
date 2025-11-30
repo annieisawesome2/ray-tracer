@@ -45,6 +45,7 @@ bool equal(const Tuple& a, const Tuple& b);
 // Tuple Operations
 Tuple add(const Tuple& a, const Tuple& b); 
 Tuple subtract(const Tuple& a, const Tuple& b); 
+Tuple negate(Tuple& a); 
 
 #endif // TUPLE_H
 

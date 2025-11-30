@@ -31,3 +31,12 @@ Tuple subtract(const Tuple& a, const Tuple& b) {
     return tuple; 
 }
 
+Tuple negate(Tuple& a) { 
+    a.x = -a.x; 
+    a.y = -a.y; 
+    a.z = -a.z; 
+    a.w = -a.w; 
+
+    return a; 
+} 
+

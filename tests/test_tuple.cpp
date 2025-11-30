@@ -82,14 +82,21 @@ TEST_CASE("adding tuples", "[tuple]") {
 TEST_CASE("subtracting tuples", "[tuple]") {
     Tuple p1(3, 2, 1, 1); 
     Tuple p2(5, 6, 7, 1);
-    Tuple p3(-2, -4, -6, 0);
+    Tuple v1(-2, -4, -6, 0);
 
-    REQUIRE(subtract(p1, p2) == p3);
+    REQUIRE(subtract(p1, p2) == v1);
 
     Tuple p(3, 2, 1, 1); 
     Tuple v(5, 6, 7, 0);
     Tuple p4(-2, -4, -6, 1);
 
     REQUIRE(subtract(p, v) == p4);
+}
+
+TEST_CASE("negating tuples", "[tuple]") {
+    Tuple v1(1, -2, 3, 0);
+    Tuple v2(-1, 2, -3, 0);
+
+    REQUIRE(negate(v1) == v2);
 }
 
