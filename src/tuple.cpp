@@ -57,3 +57,14 @@ Tuple normalize(const Tuple& a) {
     double mag = magnitude(a);
     return Tuple(a.x / mag, a.y / mag, a.z / mag, a.w / mag);
 }
+
+double dot(const Tuple&a, const Tuple& b) {
+    return (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
+}
+
+Tuple cross(const Tuple&a, const Tuple& b) {
+    Tuple v = vector((a.y * b.z) - (a.z * b.y), 
+                     (a.z * b.x) - (a.x * b.z),
+                     (a.x * b.y) - (a.y * b.x));
+    return v; 
+}

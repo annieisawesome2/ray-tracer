@@ -49,6 +49,8 @@ Tuple negate(Tuple& a);
 Tuple multiply(Tuple& a, double scale); 
 double magnitude(const Tuple& a); 
 Tuple normalize(const Tuple& a); 
+double dot(const Tuple&a, const Tuple& b); 
+Tuple cross(const Tuple&a, const Tuple& b); 
 
 #endif // TUPLE_H
 

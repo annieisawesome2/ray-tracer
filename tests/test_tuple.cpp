@@ -113,28 +113,46 @@ TEST_CASE("multiply tuples", "[tuple]") {
 }
 
 TEST_CASE("magnitude of tuples", "[tuple]") {
-    Tuple v1(1, 0, 0, 0);
-    Tuple v2(0, 1, 0, 0);
-    Tuple v3(0, 0, 1, 0);
+    Tuple v1 = vector(1, 0, 0);
+    Tuple v2 = vector(0, 1, 0);
+    Tuple v3 = vector(0, 0, 1);
     REQUIRE(magnitude(v1) == 1);
     REQUIRE(magnitude(v2) == 1);
     REQUIRE(magnitude(v3) == 1);
 
-    Tuple v4(1, 2, 3, 0);
-    Tuple v5(-1, -2, -3, 0);
+    Tuple v4 = vector(1, 2, 3);
+    Tuple v5 = vector(-1, -2, -3);
     REQUIRE(magnitude(v4) == std::sqrt(14));
     REQUIRE(magnitude(v5) == std::sqrt(14));
 }
 
 TEST_CASE("normalize vectors", "[tuple]") {
-    Tuple v1(4, 0, 0, 0);
-    Tuple v2(1, 0, 0, 0);
+    Tuple v1 = vector(4, 0, 0);
+    Tuple v2 = vector(1, 0, 0);
 
     REQUIRE(normalize(v1) == v2);
 
-    Tuple v3(1, 2, 3, 0);
-    Tuple v4(0.26726, 0.53452, 0.80178, 0);
+    Tuple v3 = vector(1, 2, 3);
+    Tuple v4 = vector(0.26726, 0.53452, 0.80178);
     REQUIRE(normalize(v3) == v4);
+}
+
+TEST_CASE("dot product", "[tuple]") {
+    Tuple v1 = vector(1, 2, 3);
+    Tuple v2 = vector(2, 3, 4);
+
+    REQUIRE(dot(v1, v2) == 20);
+}
+
+TEST_CASE("cross product", "[tuple]") {
+    Tuple v1 = vector(1, 2, 3);
+    Tuple v2 = vector(2, 3, 4);
+    Tuple v3 = vector(-1, 2, -1);
+    Tuple v4 = vector(1, -2, 1);
+
+
+    REQUIRE(cross(v1, v2) == v3);
+    REQUIRE(cross(v2, v1) == v4);
 }
 
 
