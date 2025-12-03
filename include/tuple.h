@@ -32,9 +32,22 @@ public:
     }
 };
 
+// Color class built on top of Tuple
+class Color : public Tuple {
+public:
+    // References to x, y, z as red, green, blue
+    double& red;
+    double& green;
+    double& blue;
+
+    Color(double red = 0.0, double green = 0.0, double blue = 0.0)
+        : Tuple(red, green, blue, 0.0), red(x), green(y), blue(z) {}
+};
+
 // Factory functions
 Tuple point(double x, double y, double z);
 Tuple vector(double x, double y, double z);
+Color color(double red, double green, double blue);
 
 // Floating point comparison utility
 bool equal(double a, double b);

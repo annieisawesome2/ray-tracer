@@ -155,4 +155,10 @@ TEST_CASE("cross product", "[tuple]") {
     REQUIRE(cross(v2, v1) == v4);
 }
 
+TEST_CASE("Colors are (red, green, blue) tuples", "[tuple]") {
+    Color c = color(-0.5, 0.4, 1.7);
+    REQUIRE(equal(c.red, -0.5));
+    REQUIRE(equal(c.green, 0.4));
+    REQUIRE(equal(c.blue, 1.7));
+}
 

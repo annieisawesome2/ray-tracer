@@ -8,6 +8,10 @@ Tuple vector(double x, double y, double z) {
     return Tuple(x, y, z, 0.0);
 }
 
+Color color(double red, double green, double blue) {
+    return Color(red, green, blue);
+}
+
 bool equal(double a, double b) {
     return std::abs(a - b) <= EPSILON;
 }
