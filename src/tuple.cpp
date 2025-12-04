@@ -72,3 +72,13 @@ Tuple cross(const Tuple&a, const Tuple& b) {
                      (a.x * b.y) - (a.y * b.x));
     return v; 
 }
+
+Color blend(const Color& c1, const Color& c2) {
+    // Hadamard product
+    double r = c1.red * c2.red; 
+    double g = c1.green * c2.green; 
+    double b = c1.blue * c2.blue; 
+
+    Color result(r, g, b); 
+    return result; 
+}

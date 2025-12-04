@@ -162,3 +162,11 @@ TEST_CASE("Colors are (red, green, blue) tuples", "[tuple]") {
     REQUIRE(equal(c.blue, 1.7));
 }
 
+TEST_CASE("multiplying colors", "[tuple]") {
+    Color c1 = color(1, 0.2, 0.4);
+    Color c2 = color(0.9, 1, 0.1);
+    Color c3 = color(0.9, 0.2, 0.04);
+
+    REQUIRE(blend(c1, c2) == c3);
+}
+
