@@ -157,9 +157,9 @@ TEST_CASE("cross product", "[tuple]") {
 
 TEST_CASE("Colors are (red, green, blue) tuples", "[tuple]") {
     Color c = color(-0.5, 0.4, 1.7);
-    REQUIRE(equal(c.red, -0.5));
-    REQUIRE(equal(c.green, 0.4));
-    REQUIRE(equal(c.blue, 1.7));
+    REQUIRE(equal(c.red(), -0.5));
+    REQUIRE(equal(c.green(), 0.4));
+    REQUIRE(equal(c.blue(), 1.7));
 }
 
 TEST_CASE("multiplying colors", "[tuple]") {
@@ -169,4 +169,28 @@ TEST_CASE("multiplying colors", "[tuple]") {
 
     REQUIRE(blend(c1, c2) == c3);
 }
+
+TEST_CASE("Creating a canvas", "[canvas]") {
+    Canvas c = canvas(10, 20);
+    REQUIRE(c.width == 10);
+    REQUIRE(c.height == 20);
+    
+    // Check that every pixel is black
+    Color black = color(0, 0, 0);
+    for (int y = 0; y < c.height; y++) {
+        for (int x = 0; x < c.width; x++) {
+            REQUIRE(pixel_at(c, x, y) == black);
+        }
+    }
+}
+
+TEST_CASE("Writing pixels to a canvas", "[canvas]") {
+    Canvas c = canvas(10, 20);
+    Color red = color(1, 0, 0);
+    
+    write_pixel(c, 2, 3, red);
+    REQUIRE(pixel_at(c, 2, 3) == red);
+}
+
+
 

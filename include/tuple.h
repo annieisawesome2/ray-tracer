@@ -2,6 +2,7 @@
 #define TUPLE_H
 
 #include <cmath>
+#include <vector>
 
 constexpr double EPSILON = 0.00001;
 
@@ -35,13 +36,28 @@ public:
 // Color class built on top of Tuple
 class Color : public Tuple {
 public:
-    // References to x, y, z as red, green, blue
-    double& red;
-    double& green;
-    double& blue;
-
     Color(double red = 0.0, double green = 0.0, double blue = 0.0)
-        : Tuple(red, green, blue, 0.0), red(x), green(y), blue(z) {}
+        : Tuple(red, green, blue, 0.0) {}
+
+    // Accessors that return references to x, y, z as red, green, blue
+    double& red() { return x; }
+    double& green() { return y; }
+    double& blue() { return z; }
+    
+    const double& red() const { return x; }
+    const double& green() const { return y; }
+    const double& blue() const { return z; }
+};
+
+// Canvas class for storing pixels
+class Canvas {
+public:
+    int width;
+    int height;
+    std::vector<std::vector<Color>> pixels;
+
+    Canvas(int width, int height)
+        : width(width), height(height), pixels(height, std::vector<Color>(width, Color(0, 0, 0))) {}
 };
 
 // Factory functions
@@ -64,7 +80,12 @@ double magnitude(const Tuple& a);
 Tuple normalize(const Tuple& a); 
 double dot(const Tuple&a, const Tuple& b); 
 Tuple cross(const Tuple&a, const Tuple& b); 
-Color blend(const Color& c1, const Color& c2); 
+Color blend(const Color& c1, const Color& c2);
+
+// Canvas functions
+Canvas canvas(int width, int height);
+void write_pixel(Canvas& c, int x, int y, const Color& color);
+Color pixel_at(const Canvas& c, int x, int y); 
 
 #endif // TUPLE_H
 

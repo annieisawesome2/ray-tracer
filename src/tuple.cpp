@@ -75,10 +75,28 @@ Tuple cross(const Tuple&a, const Tuple& b) {
 
 Color blend(const Color& c1, const Color& c2) {
     // Hadamard product
-    double r = c1.red * c2.red; 
-    double g = c1.green * c2.green; 
-    double b = c1.blue * c2.blue; 
+    double r = c1.red() * c2.red(); 
+    double g = c1.green() * c2.green(); 
+    double b = c1.blue() * c2.blue(); 
 
     Color result(r, g, b); 
     return result; 
+}
+
+// Canvas functions
+Canvas canvas(int width, int height) {
+    return Canvas(width, height);
+}
+
+void write_pixel(Canvas& c, int x, int y, const Color& color) {
+    if (x >= 0 && x < c.width && y >= 0 && y < c.height) {
+        c.pixels[y][x] = color;
+    }
+}
+
+Color pixel_at(const Canvas& c, int x, int y) {
+    if (x >= 0 && x < c.width && y >= 0 && y < c.height) {
+        return c.pixels[y][x];
+    }
+    return color(0, 0, 0); // Return black for out-of-bounds
 }
