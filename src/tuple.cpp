@@ -1,4 +1,6 @@
 #include "tuple.h"
+#include <sstream>
+#include <algorithm>
 
 Tuple point(double x, double y, double z) {
     return Tuple(x, y, z, 1.0);
@@ -99,4 +101,76 @@ Color pixel_at(const Canvas& c, int x, int y) {
         return c.pixels[y][x];
     }
     return color(0, 0, 0); // Return black for out-of-bounds
+}
+
+std::string canvas_to_ppm(const Canvas& c) {
+    std::ostringstream ppm;
+    
+    // Header
+    ppm << "P3\n";
+    ppm << c.width << " " << c.height << "\n";
+    ppm << "255\n";
+    
+    // Pixel data with line length limit (70 characters)
+    const int MAX_LINE_LENGTH = 70;
+    std::string current_line;
+    
+    for (int y = 0; y < c.height; y++) {
+        for (int x = 0; x < c.width; x++) {
+            const Color& pixel = c.pixels[y][x];
+            
+            // Scale and clamp color values to 0-255
+            int r = static_cast<int>(std::round(std::max(0.0, std::min(1.0, pixel.red())) * 255.0));
+            int g = static_cast<int>(std::round(std::max(0.0, std::min(1.0, pixel.green())) * 255.0));
+            int b = static_cast<int>(std::round(std::max(0.0, std::min(1.0, pixel.blue())) * 255.0));
+            
+            // Format the RGB values as individual components
+            std::ostringstream r_str, g_str, b_str;
+            r_str << r;
+            g_str << g;
+            b_str << b;
+            std::string r_val = r_str.str();
+            std::string g_val = g_str.str();
+            std::string b_val = b_str.str();
+            
+            // Add each component, checking line length
+            // Add red component
+            if (!current_line.empty()) {
+                if (current_line.length() + 1 + r_val.length() > MAX_LINE_LENGTH) {
+                    ppm << current_line << "\n";
+                    current_line = r_val;
+                } else {
+                    current_line += " " + r_val;
+                }
+            } else {
+                current_line = r_val;
+            }
+            
+            // Add green component
+            if (current_line.length() + 1 + g_val.length() > MAX_LINE_LENGTH) {
+                ppm << current_line << "\n";
+                current_line = g_val;
+            } else {
+                current_line += " " + g_val;
+            }
+            
+            // Add blue component
+            if (current_line.length() + 1 + b_val.length() > MAX_LINE_LENGTH) {
+                ppm << current_line << "\n";
+                current_line = b_val;
+            } else {
+                current_line += " " + b_val;
+            }
+        }
+        
+        // End of row - output current line and start new line
+        if (!current_line.empty()) {
+            ppm << current_line << "\n";
+            current_line.clear();
+        }
+    }
+    
+    // Ensure file ends with newline (if current_line is empty, we already have a newline from last row)
+    // But we need to make sure there's always a trailing newline
+    return ppm.str();
 }

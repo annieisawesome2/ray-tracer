@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <vector>
+#include <string>
 
 constexpr double EPSILON = 0.00001;
 
@@ -85,7 +86,8 @@ Color blend(const Color& c1, const Color& c2);
 // Canvas functions
 Canvas canvas(int width, int height);
 void write_pixel(Canvas& c, int x, int y, const Color& color);
-Color pixel_at(const Canvas& c, int x, int y); 
+Color pixel_at(const Canvas& c, int x, int y);
+std::string canvas_to_ppm(const Canvas& c); 
 
 #endif // TUPLE_H
 

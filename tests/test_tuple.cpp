@@ -1,6 +1,8 @@
 #include <catch2/catch_test_macros.hpp>
 #include "tuple.h"
 #include <cmath>
+#include <sstream>
+#include <vector>
 
 TEST_CASE("A tuple with w=1.0 is a point", "[tuple]") {
     Tuple a(4.3, -4.2, 3.1, 1.0);
@@ -191,6 +193,91 @@ TEST_CASE("Writing pixels to a canvas", "[canvas]") {
     write_pixel(c, 2, 3, red);
     REQUIRE(pixel_at(c, 2, 3) == red);
 }
+
+TEST_CASE("Constructing the PPM header", "[canvas]") {
+    Canvas c = canvas(5, 3);
+    std::string ppm = canvas_to_ppm(c);
+    
+    // Split into lines
+    std::istringstream iss(ppm);
+    std::string line1, line2, line3;
+    std::getline(iss, line1);
+    std::getline(iss, line2);
+    std::getline(iss, line3);
+    
+    REQUIRE(line1 == "P3");
+    REQUIRE(line2 == "5 3");
+    REQUIRE(line3 == "255");
+}
+
+TEST_CASE("Constructing the PPM pixel data", "[canvas]") {
+    Canvas c = canvas(5, 3);
+    Color c1 = color(1.5, 0, 0); 
+    Color c2 = color(0, 0.5, 0); 
+    Color c3 = color(-0.5, 0, 1); 
+
+    write_pixel(c, 0, 0, c1);
+    write_pixel(c, 2, 1, c2);
+    write_pixel(c, 4, 2, c3);
+    std::string ppm = canvas_to_ppm(c);
+    
+    // Split into lines
+    std::istringstream iss(ppm);
+    std::vector<std::string> lines;
+    std::string line;
+    while (std::getline(iss, line)) {
+        lines.push_back(line);
+    }
+    
+    // Check lines 4-6 (index 3-5, since header is lines 1-3)
+    REQUIRE(lines.size() >= 6);
+    REQUIRE(lines[3] == "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0");
+    REQUIRE(lines[4] == "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0");
+    REQUIRE(lines[5] == "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255");
+}
+
+TEST_CASE("Splitting long lines in PPM files", "[canvas]") {
+    Canvas c = canvas(10, 2);
+    Color fill_color = color(1, 0.8, 0.6);
+    
+    // Set every pixel to the same color
+    for (int y = 0; y < c.height; y++) {
+        for (int x = 0; x < c.width; x++) {
+            write_pixel(c, x, y, fill_color);
+        }
+    }
+    
+    std::string ppm = canvas_to_ppm(c);
+    
+    // Split into lines
+    std::istringstream iss(ppm);
+    std::vector<std::string> lines;
+    std::string line;
+    while (std::getline(iss, line)) {
+        lines.push_back(line);
+    }
+    
+    // Check lines 4-7 (index 3-6, since header is lines 1-3)
+    REQUIRE(lines.size() >= 7);
+    REQUIRE(lines[3] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204");
+    REQUIRE(lines[4] == "153 255 204 153 255 204 153 255 204 153 255 204 153");
+    REQUIRE(lines[5] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204");
+    REQUIRE(lines[6] == "153 255 204 153 255 204 153 255 204 153 255 204 153");
+    
+    // Verify no line exceeds 70 characters
+    for (size_t i = 3; i < lines.size(); i++) {
+        REQUIRE(lines[i].length() <= 70);
+    }
+}
+
+TEST_CASE("PPM files are terminated by a newline character", "[canvas]") {
+    Canvas c = canvas(5, 3);
+    std::string ppm = canvas_to_ppm(c);
+    
+    REQUIRE(!ppm.empty());
+    REQUIRE(ppm.back() == '\n');
+}
+
 
 
 
