@@ -87,7 +87,8 @@ Color blend(const Color& c1, const Color& c2);
 Canvas canvas(int width, int height);
 void write_pixel(Canvas& c, int x, int y, const Color& color);
 Color pixel_at(const Canvas& c, int x, int y);
-std::string canvas_to_ppm(const Canvas& c); 
+std::string canvas_to_ppm(const Canvas& c);
+void save_canvas_to_file(const Canvas& c, const std::string& filename); 
 
 #endif // TUPLE_H
 

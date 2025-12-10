@@ -1,6 +1,7 @@
 #include "tuple.h"
 #include <sstream>
 #include <algorithm>
+#include <fstream>
 
 Tuple point(double x, double y, double z) {
     return Tuple(x, y, z, 1.0);
@@ -173,4 +174,13 @@ std::string canvas_to_ppm(const Canvas& c) {
     // Ensure file ends with newline (if current_line is empty, we already have a newline from last row)
     // But we need to make sure there's always a trailing newline
     return ppm.str();
+}
+
+void save_canvas_to_file(const Canvas& c, const std::string& filename) {
+    std::string ppm = canvas_to_ppm(c);
+    std::ofstream file(filename);
+    if (file.is_open()) {
+        file << ppm;
+        file.close();
+    }
 }

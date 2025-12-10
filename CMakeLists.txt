@@ -32,3 +32,7 @@ target_link_libraries(tests ray_tracer_lib Catch2::Catch2WithMain)
 # Add test
 add_test(NAME TupleTests COMMAND tests)
 
+# Projectile visualization executable
+add_executable(projectile src/projectile.cpp)
+target_link_libraries(projectile ray_tracer_lib)
+
