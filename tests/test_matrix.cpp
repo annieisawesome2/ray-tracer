@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
-#include "matrix.h"
-#include "tuple.h"
+#include "matrix/matrix.h"
+#include "tuple/tuple.h"
 
 TEST_CASE("Constructing and inspecting a 4x4 matrix", "[matrix]") {
     Matrix M = matrix4x4({

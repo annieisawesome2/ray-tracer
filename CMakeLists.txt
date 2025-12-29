@@ -4,8 +4,8 @@ project(ray_tracer)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Include directories
-include_directories(include)
+# Include directories - add root directory so we can use module/header.h syntax
+include_directories(${CMAKE_SOURCE_DIR})
 
 # Fetch Catch2
 include(FetchContent)
@@ -18,8 +18,8 @@ FetchContent_MakeAvailable(Catch2)
 
 # Source files
 set(SOURCES
-    src/tuple.cpp
-    src/matrix.cpp
+    tuple/tuple.cpp
+    matrix/matrix.cpp
 )
 
 # Create library

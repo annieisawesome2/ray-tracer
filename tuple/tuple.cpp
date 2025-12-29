@@ -184,3 +184,4 @@ void save_canvas_to_file(const Canvas& c, const std::string& filename) {
         file.close();
     }
 }
+

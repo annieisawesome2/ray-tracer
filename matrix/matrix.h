@@ -2,7 +2,7 @@
 #define MATRIX_H
 
 #include <vector>
-#include "tuple.h"
+#include "tuple/tuple.h"
 
 class Matrix {
 public:
