@@ -79,3 +79,39 @@ TEST_CASE("Matrix equality with different matrices", "[matrix]") {
     REQUIRE(A != B);
 }
 
+TEST_CASE("compareMatrix: A = B with identical matrices", "[matrix]") {
+    Matrix A = matrix4x4({
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 8, 7, 6},
+        {5, 4, 3, 2}
+    });
+    
+    Matrix B = matrix4x4({
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 8, 7, 6},
+        {5, 4, 3, 2}
+    });
+    
+    REQUIRE(compareMatrix(A, B) == true);
+}
+
+TEST_CASE("compareMatrix: A != B with different matrices", "[matrix]") {
+    Matrix A = matrix4x4({
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 8, 7, 6},
+        {5, 4, 3, 2}
+    });
+    
+    Matrix B = matrix4x4({
+        {2, 3, 4, 5},
+        {6, 7, 8, 9},
+        {8, 7, 6, 5},
+        {4, 3, 2, 1}
+    });
+    
+    REQUIRE(compareMatrix(A, B) == false);
+}
+
