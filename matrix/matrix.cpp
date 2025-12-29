@@ -55,3 +55,21 @@ Matrix matrix2x2(const std::vector<std::vector<double>>& values) {
     return Matrix(2, 2, values);
 }
 
+bool compareMatrix(Matrix a, Matrix b) {
+    // Compare if matrix a rows and columns match matrix b's
+    if (a.rows != b.rows || a.cols != b.cols) {
+        return false;
+    }
+    
+    // Compare each element using EPSILON for floating point comparison
+    for (int i = 0; i < a.rows; i++) {
+        for (int j = 0; j < a.cols; j++) {
+            if (std::abs(a.data[i][j] - b.data[i][j]) >= EPSILON) {
+                return false;
+            }
+        }
+    }
+    
+    return true;
+}
+

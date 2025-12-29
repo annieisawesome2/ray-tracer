@@ -30,5 +30,7 @@ Matrix matrix4x4(const std::vector<std::vector<double>>& values);
 Matrix matrix3x3(const std::vector<std::vector<double>>& values);
 Matrix matrix2x2(const std::vector<std::vector<double>>& values);
 
+// matrix comparison
+bool compareMatrix(Matrix a, Matrix b); 
 #endif // MATRIX_H
 
