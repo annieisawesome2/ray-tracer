@@ -23,23 +23,11 @@ const double& Matrix::operator()(int row, int col) const {
 }
 
 bool Matrix::operator==(const Matrix& other) const {
-    if (rows != other.rows || cols != other.cols) {
-        return false;
-    }
-    
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            if (std::abs(data[i][j] - other.data[i][j]) >= EPSILON) {
-                return false;
-            }
-        }
-    }
-    
-    return true;
+    return compareMatrix(*this, other);
 }
 
 bool Matrix::operator!=(const Matrix& other) const {
-    return !(*this == other);
+    return !compareMatrix(*this, other);
 }
 
 // Factory functions
@@ -71,5 +59,26 @@ bool compareMatrix(Matrix a, Matrix b) {
     }
     
     return true;
+}
+
+Matrix matrixMultiply(Matrix a, Matrix b) {
+    if (a.cols != b.rows) {
+        return Matrix(0, 0);
+    }
+    
+    Matrix result(a.rows, b.cols);
+
+    for (int row = 0; row < result.rows; row++) {
+        for (int col = 0; col < result.cols; col++) {
+            double sum = 0.0;
+            // Compute: A[row, k] * B[k, col] for all k
+            for (int k = 0; k < a.cols; k++) {
+                sum += a.data[row][k] * b.data[k][col];
+            }
+            result.data[row][col] = sum;
+        }
+    }
+    
+    return result;
 }
 

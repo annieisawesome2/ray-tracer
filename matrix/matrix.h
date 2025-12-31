@@ -32,5 +32,6 @@ Matrix matrix2x2(const std::vector<std::vector<double>>& values);
 
 // matrix comparison
 bool compareMatrix(Matrix a, Matrix b); 
+Matrix matrixMultiply(Matrix a, Matrix b); 
 #endif // MATRIX_H
 
