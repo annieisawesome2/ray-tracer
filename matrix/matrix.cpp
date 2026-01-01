@@ -43,6 +43,16 @@ Matrix matrix2x2(const std::vector<std::vector<double>>& values) {
     return Matrix(2, 2, values);
 }
 
+Matrix identity_matrix() {
+    // 4x4 identity matrix: 1s on diagonal, 0s elsewhere
+    return matrix4x4({
+        {1, 0, 0, 0},
+        {0, 1, 0, 0},
+        {0, 0, 1, 0},
+        {0, 0, 0, 1}
+    });
+}
+
 bool compareMatrix(Matrix a, Matrix b) {
     // Compare if matrix a rows and columns match matrix b's
     if (a.rows != b.rows || a.cols != b.cols) {

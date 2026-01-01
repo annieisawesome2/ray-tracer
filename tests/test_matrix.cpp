@@ -122,3 +122,29 @@ TEST_CASE("A matrix multiplied by a tuple", "[matrix]") {
     REQUIRE(equal(result.z, expected.z));
     REQUIRE(equal(result.w, expected.w));
 }
+
+TEST_CASE("Multiplying a matrix by the identity matrix", "[matrix]") {
+    Matrix A = matrix4x4({
+        {0, 1, 2, 4},
+        {1, 2, 4, 8},
+        {2, 4, 8, 16},
+        {4, 8, 16, 32}
+    });
+    
+    Matrix I = identity_matrix();
+    Matrix result = matrixMultiply(A, I);
+    
+    REQUIRE(compareMatrix(result, A) == true);
+}
+
+TEST_CASE("Multiplying the identity matrix by a tuple", "[matrix]") {
+    Tuple a(1, 2, 3, 4);
+    Matrix I = identity_matrix();
+    
+    Tuple result = multiply(I, a);
+    
+    REQUIRE(equal(result.x, a.x));
+    REQUIRE(equal(result.y, a.y));
+    REQUIRE(equal(result.z, a.z));
+    REQUIRE(equal(result.w, a.w));
+}
