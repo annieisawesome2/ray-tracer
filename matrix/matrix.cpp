@@ -82,3 +82,14 @@ Matrix matrixMultiply(Matrix a, Matrix b) {
     return result;
 }
 
+Tuple multiply(const Matrix& m, const Tuple& t) {
+    // Treat tuple as a 4x1 column matrix and multiply
+    // For each row in the matrix, compute dot product with the tuple
+    double x = m.data[0][0] * t.x + m.data[0][1] * t.y + m.data[0][2] * t.z + m.data[0][3] * t.w;
+    double y = m.data[1][0] * t.x + m.data[1][1] * t.y + m.data[1][2] * t.z + m.data[1][3] * t.w;
+    double z = m.data[2][0] * t.x + m.data[2][1] * t.y + m.data[2][2] * t.z + m.data[2][3] * t.w;
+    double w = m.data[3][0] * t.x + m.data[3][1] * t.y + m.data[3][2] * t.z + m.data[3][3] * t.w;
+    
+    return Tuple(x, y, z, w);
+}
+

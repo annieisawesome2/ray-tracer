@@ -105,3 +105,20 @@ TEST_CASE("Multiplying two matrices", "[matrix]") {
     REQUIRE(compareMatrix(result, expected) == true);
 }
 
+TEST_CASE("A matrix multiplied by a tuple", "[matrix]") {
+    Matrix A = matrix4x4({
+        {1, 2, 3, 4},
+        {2, 4, 4, 2},
+        {8, 6, 4, 1},
+        {0, 0, 0, 1}
+    });
+    
+    Tuple b = point(1, 2, 3);  // tuple(1, 2, 3, 1)
+    Tuple expected = point(18, 24, 33);  // tuple(18, 24, 33, 1)
+    
+    Tuple result = multiply(A, b);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}

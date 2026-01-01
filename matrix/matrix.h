@@ -32,6 +32,7 @@ Matrix matrix2x2(const std::vector<std::vector<double>>& values);
 
 // matrix comparison
 bool compareMatrix(Matrix a, Matrix b); 
-Matrix matrixMultiply(Matrix a, Matrix b); 
+Matrix matrixMultiply(Matrix a, Matrix b);
+Tuple multiply(const Matrix& m, const Tuple& t); 
 #endif // MATRIX_H
 
