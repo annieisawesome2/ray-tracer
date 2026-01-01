@@ -103,3 +103,17 @@ Tuple multiply(const Matrix& m, const Tuple& t) {
     return Tuple(x, y, z, w);
 }
 
+Matrix transpose(const Matrix& m) {
+    // Transpose: swap rows and columns
+    // Element at [i, j] becomes element at [j, i]
+    Matrix result(m.cols, m.rows);
+    
+    for (int i = 0; i < m.rows; i++) {
+        for (int j = 0; j < m.cols; j++) {
+            result.data[j][i] = m.data[i][j];
+        }
+    }
+    
+    return result;
+}
+

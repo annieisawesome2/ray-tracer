@@ -34,6 +34,7 @@ Matrix identity_matrix();
 // matrix comparison
 bool compareMatrix(Matrix a, Matrix b); 
 Matrix matrixMultiply(Matrix a, Matrix b);
-Tuple multiply(const Matrix& m, const Tuple& t); 
+Tuple multiply(const Matrix& m, const Tuple& t);
+Matrix transpose(const Matrix& m); 
 #endif // MATRIX_H
 

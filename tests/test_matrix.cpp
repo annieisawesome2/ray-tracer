@@ -148,3 +148,29 @@ TEST_CASE("Multiplying the identity matrix by a tuple", "[matrix]") {
     REQUIRE(equal(result.z, a.z));
     REQUIRE(equal(result.w, a.w));
 }
+
+TEST_CASE("Transposing a matrix", "[matrix]") {
+    Matrix A = matrix4x4({
+        {0, 9, 3, 0},
+        {9, 8, 0, 8},
+        {1, 8, 5, 3},
+        {0, 0, 5, 8}
+    });
+    
+    Matrix expected = matrix4x4({
+        {0, 9, 1, 0},
+        {9, 8, 8, 0},
+        {3, 0, 5, 5},
+        {0, 8, 3, 8}
+    });
+    
+    Matrix result = transpose(A);
+    REQUIRE(compareMatrix(result, expected) == true);
+}
+
+TEST_CASE("Transposing the identity matrix", "[matrix]") {
+    Matrix I = identity_matrix();
+    Matrix A = transpose(I);
+    
+    REQUIRE(compareMatrix(A, I) == true);
+}
