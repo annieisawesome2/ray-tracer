@@ -174,3 +174,12 @@ TEST_CASE("Transposing the identity matrix", "[matrix]") {
     
     REQUIRE(compareMatrix(A, I) == true);
 }
+
+TEST_CASE("Calculating the determinant of a 2x2 matrix", "[matrix]") {
+    Matrix A = matrix2x2({
+        {1, 5},
+        {-3, 2}
+    });
+    
+    REQUIRE(equal(determinant(A), 17));
+}

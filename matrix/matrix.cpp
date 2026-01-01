@@ -117,3 +117,12 @@ Matrix transpose(const Matrix& m) {
     return result;
 }
 
+double determinant(const Matrix& m) {
+    // For a 2x2 matrix: determinant = a*d - b*c
+    if (m.rows == 2 && m.cols == 2) {
+        return m.data[0][0] * m.data[1][1] - m.data[0][1] * m.data[1][0];
+    }
+    
+    return 0.0;
+}
+
