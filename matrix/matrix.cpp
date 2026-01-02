@@ -122,7 +122,27 @@ double determinant(const Matrix& m) {
     if (m.rows == 2 && m.cols == 2) {
         return m.data[0][0] * m.data[1][1] - m.data[0][1] * m.data[1][0];
     }
-    
+
     return 0.0;
 }
 
+Matrix submatrix(const Matrix& m, int row, int col) {
+    Matrix sub(m.rows - 1, m.cols - 1);
+
+    int sub_row = 0; 
+    for (int i = 0; i < m.rows; i++) {
+        if (i == row)
+            continue; 
+
+        int sub_column = 0; 
+        for (int j = 0; j < m.cols; j++) {
+            if (j == col) 
+                continue; 
+
+            sub.data[sub_row][sub_column] = m.data[i][j]; 
+            sub_column++; 
+        }
+        sub_row++; 
+    }
+    return sub; 
+}

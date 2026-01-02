@@ -183,3 +183,35 @@ TEST_CASE("Calculating the determinant of a 2x2 matrix", "[matrix]") {
     
     REQUIRE(equal(determinant(A), 17));
 }
+
+TEST_CASE("A submatrix of a 3x3 matrix is a 2x2 matrix", "[matrix]") {
+    Matrix A = matrix3x3({
+        {1, 5, 0},
+        {-3, 2, 7}, 
+        {0, 6, -3}
+    });
+
+    Matrix S = matrix2x2({
+        {-3, 2}, 
+        {0, 6}
+    });
+    
+    REQUIRE(compareMatrix(submatrix(A, 0, 2), S) == true);
+}
+
+TEST_CASE("A submatrix of a 4x4 matrix is a 3x3 matrix", "[matrix]") {
+    Matrix A = matrix4x4({
+        {-6, 1, 1, 6},
+        {-8, 5, 8, 6},
+        {-1, 0, 8, 2},
+        {-7, 1, -1, 1}
+    });
+
+    Matrix S = matrix3x3({
+        {-6, 1, 6},
+        {-8, 8, 6},
+        {-7, -1, 1}
+    });
+    
+    REQUIRE(compareMatrix(submatrix(A, 2, 1), S) == true);
+}

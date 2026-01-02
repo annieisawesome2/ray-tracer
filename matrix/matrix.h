@@ -37,5 +37,6 @@ Matrix matrixMultiply(Matrix a, Matrix b);
 Tuple multiply(const Matrix& m, const Tuple& t);
 Matrix transpose(const Matrix& m); 
 double determinant(const Matrix& m); 
+Matrix submatrix(const Matrix& m, int row, int col); 
 #endif // MATRIX_H
 
