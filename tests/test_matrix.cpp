@@ -215,3 +215,16 @@ TEST_CASE("A submatrix of a 4x4 matrix is a 3x3 matrix", "[matrix]") {
     
     REQUIRE(compareMatrix(submatrix(A, 2, 1), S) == true);
 }
+
+TEST_CASE("Calculating a minor of a 3x3 matrix", "[matrix]") {
+    Matrix A = matrix3x3({
+        {3, 5, 0},
+        {2, -1, -7},
+        {6, -1, 5}
+    });
+
+    Matrix B = submatrix(A, 1, 0); 
+    
+    REQUIRE(equal(determinant(B), 25));
+    REQUIRE(equal(minor(A, 1, 0), 25));
+}

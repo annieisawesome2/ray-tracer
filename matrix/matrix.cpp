@@ -146,3 +146,8 @@ Matrix submatrix(const Matrix& m, int row, int col) {
     }
     return sub; 
 }
+
+double minor(const Matrix& m, int row, int col) {
+    Matrix A = submatrix(m, row, col); 
+    return determinant(A); 
+}
