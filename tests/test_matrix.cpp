@@ -241,3 +241,31 @@ TEST_CASE("Calculating a cofactor of a 3x3 matrix", "[matrix]") {
     REQUIRE(equal(minor(A, 1, 0), 25));
     REQUIRE(equal(cofactor(A, 1, 0), -25));
 }
+
+TEST_CASE("Calculating the determinant of a 3x3 matrix", "[matrix]") {
+    Matrix A = matrix3x3({
+        {1, 2, 6},
+        {-5, 8, -4},
+        {2, 6, 4}
+    });
+    
+    REQUIRE(equal(cofactor(A, 0, 0), 56));
+    REQUIRE(equal(cofactor(A, 0, 1), 12));
+    REQUIRE(equal(cofactor(A, 0, 2), -46));
+    REQUIRE(equal(determinant(A), -196));
+}
+
+TEST_CASE("Calculating the determinant of a 4x4 matrix", "[matrix]") {
+    Matrix A = matrix4x4({
+        {-2, -8, 3, 5},
+        {-3, 1, 7, 3},
+        {1, 2, -9, 6},
+        {-6, 7, 7, -9}
+    });
+    
+    REQUIRE(equal(cofactor(A, 0, 0), 690));
+    REQUIRE(equal(cofactor(A, 0, 1), 447));
+    REQUIRE(equal(cofactor(A, 0, 2), 210));
+    REQUIRE(equal(cofactor(A, 0, 3), 51));
+    REQUIRE(equal(determinant(A), -4071));
+}

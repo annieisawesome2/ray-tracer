@@ -122,8 +122,14 @@ double determinant(const Matrix& m) {
     if (m.rows == 2 && m.cols == 2) {
         return m.data[0][0] * m.data[1][1] - m.data[0][1] * m.data[1][0];
     }
-
-    return 0.0;
+    
+    // For larger matrices: use first row and cofactors
+    double det = 0.0;
+    for (int col = 0; col < m.cols; col++) {
+        det += m.data[0][col] * cofactor(m, 0, col);
+    }
+    
+    return det;
 }
 
 Matrix submatrix(const Matrix& m, int row, int col) {
