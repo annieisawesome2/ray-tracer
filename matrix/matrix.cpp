@@ -151,3 +151,12 @@ double minor(const Matrix& m, int row, int col) {
     Matrix A = submatrix(m, row, col); 
     return determinant(A); 
 }
+
+double cofactor(const Matrix& m, int row, int col) {
+    double min = minor(m, row, col);
+    // If row + col is odd, negate the minor; otherwise keep it as is
+    if ((row + col) % 2 == 1) {
+        return -min;
+    }
+    return min;
+}

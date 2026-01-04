@@ -228,3 +228,16 @@ TEST_CASE("Calculating a minor of a 3x3 matrix", "[matrix]") {
     REQUIRE(equal(determinant(B), 25));
     REQUIRE(equal(minor(A, 1, 0), 25));
 }
+
+TEST_CASE("Calculating a cofactor of a 3x3 matrix", "[matrix]") {
+    Matrix A = matrix3x3({
+        {3, 5, 0},
+        {2, -1, -7},
+        {6, -1, 5}
+    });
+    
+    REQUIRE(equal(minor(A, 0, 0), -12));
+    REQUIRE(equal(cofactor(A, 0, 0), -12));
+    REQUIRE(equal(minor(A, 1, 0), 25));
+    REQUIRE(equal(cofactor(A, 1, 0), -25));
+}
