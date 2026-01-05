@@ -40,5 +40,7 @@ double determinant(const Matrix& m);
 Matrix submatrix(const Matrix& m, int row, int col); 
 double minor(const Matrix& m, int row, int col);
 double cofactor(const Matrix& m, int row, int col);
+bool is_invertible(const Matrix& m);
+Matrix inverse(const Matrix& m);
 #endif // MATRIX_H
 

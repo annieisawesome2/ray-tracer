@@ -166,3 +166,30 @@ double cofactor(const Matrix& m, int row, int col) {
     }
     return min;
 }
+
+bool is_invertible(const Matrix& m) {
+    // A matrix is invertible if its determinant is not zero
+    return std::abs(determinant(m)) >= EPSILON;
+}
+
+Matrix inverse(const Matrix& m) {
+    // Fail if matrix is not invertible
+    if (!is_invertible(m)) {
+        // Return empty matrix as error indicator
+        return Matrix(0, 0);
+    }
+    
+    double det = determinant(m);
+    Matrix result(m.rows, m.cols);
+    
+    // For each row and column, compute cofactor and divide by determinant
+    // Store at [col, row] to accomplish transpose operation
+    for (int row = 0; row < m.rows; row++) {
+        for (int col = 0; col < m.cols; col++) {
+            double c = cofactor(m, row, col);
+            result.data[col][row] = c / det;
+        }
+    }
+    
+    return result;
+}
