@@ -193,3 +193,12 @@ Matrix inverse(const Matrix& m) {
     
     return result;
 }
+
+Matrix translation(double x, double y, double z) {
+    // Translation matrix: identity matrix with x, y, z in the last column
+    Matrix result = identity_matrix();
+    result.data[0][3] = x;
+    result.data[1][3] = y;
+    result.data[2][3] = z;
+    return result;
+}

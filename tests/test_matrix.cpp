@@ -380,3 +380,39 @@ TEST_CASE("Multiplying a product by its inverse", "[matrix]") {
     
     REQUIRE(compareMatrix(result, A) == true);
 }
+
+TEST_CASE("Multiplying by a translation matrix", "[matrix]") {
+    Matrix transform = translation(5, -3, 2);
+    Tuple p = point(-3, 4, 5);
+    Tuple expected = point(2, 1, 7);
+    
+    Tuple result = multiply(transform, p);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
+
+TEST_CASE("Multiplying by the inverse of a translation matrix", "[matrix]") {
+    Matrix transform = translation(5, -3, 2);
+    Matrix inv = inverse(transform);
+    Tuple p = point(-3, 4, 5);
+    Tuple expected = point(-8, 7, 3);
+    
+    Tuple result = multiply(inv, p);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
+
+TEST_CASE("Translation does not affect vectors", "[matrix]") {
+    Matrix transform = translation(5, -3, 2);
+    Tuple v = vector(-3, 4, 5);
+    
+    Tuple result = multiply(transform, v);
+    REQUIRE(equal(result.x, v.x));
+    REQUIRE(equal(result.y, v.y));
+    REQUIRE(equal(result.z, v.z));
+    REQUIRE(equal(result.w, v.w));
+}
