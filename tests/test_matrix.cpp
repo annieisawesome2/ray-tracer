@@ -416,3 +416,52 @@ TEST_CASE("Translation does not affect vectors", "[matrix]") {
     REQUIRE(equal(result.z, v.z));
     REQUIRE(equal(result.w, v.w));
 }
+
+TEST_CASE("A scaling matrix applied to a point", "[matrix]") {
+    Matrix transform = scaling(2, 3, 4);
+    Tuple p = point(-4, 6, 8);
+    Tuple expected = point(-8, 18, 32);
+    
+    Tuple result = multiply(transform, p);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
+
+TEST_CASE("A scaling matrix applied to a vector", "[matrix]") {
+    Matrix transform = scaling(2, 3, 4);
+    Tuple v = vector(-4, 6, 8);
+    Tuple expected = vector(-8, 18, 32);
+    
+    Tuple result = multiply(transform, v);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
+
+TEST_CASE("Multiplying by the inverse of a scaling matrix", "[matrix]") {
+    Matrix transform = scaling(2, 3, 4);
+    Matrix inv = inverse(transform);
+    Tuple v = vector(-4, 6, 8);
+    Tuple expected = vector(-2, 2, 2);
+    
+    Tuple result = multiply(inv, v);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
+
+TEST_CASE("Reflection is scaling by a negative value", "[matrix]") {
+    Matrix transform = scaling(-1, 1, 1);
+    Tuple p = point(2, 3, 4);
+    Tuple expected = point(-2, 3, 4);
+    
+    Tuple result = multiply(transform, p);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}

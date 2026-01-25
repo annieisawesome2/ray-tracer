@@ -202,3 +202,12 @@ Matrix translation(double x, double y, double z) {
     result.data[2][3] = z;
     return result;
 }
+
+Matrix scaling(double x, double y, double z) {
+    // Scaling matrix: scaling factors on the diagonal
+    Matrix result = identity_matrix();
+    result.data[0][0] = x;
+    result.data[1][1] = y;
+    result.data[2][2] = z;
+    return result;
+}

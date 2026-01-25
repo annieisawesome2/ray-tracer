@@ -42,6 +42,7 @@ double minor(const Matrix& m, int row, int col);
 double cofactor(const Matrix& m, int row, int col);
 bool is_invertible(const Matrix& m);
 Matrix inverse(const Matrix& m);
-Matrix translation(double x, double y, double z); 
+Matrix translation(double x, double y, double z);
+Matrix scaling(double x, double y, double z); 
 #endif // MATRIX_H
 
