@@ -211,3 +211,19 @@ Matrix scaling(double x, double y, double z) {
     result.data[2][2] = z;
     return result;
 }
+
+Matrix rotation_x(double radians) {
+    // Rotation matrix around x-axis by r radians:
+    // [1,     0,        0,     0]
+    // [0,  cos r,  -sin r,     0]
+    // [0,  sin r,   cos r,     0]
+    // [0,     0,        0,     1]
+    Matrix result = identity_matrix();
+    double cos_r = std::cos(radians);
+    double sin_r = std::sin(radians);
+    result.data[1][1] = cos_r;
+    result.data[1][2] = -sin_r;
+    result.data[2][1] = sin_r;
+    result.data[2][2] = cos_r;
+    return result;
+}
