@@ -45,5 +45,6 @@ Matrix inverse(const Matrix& m);
 Matrix translation(double x, double y, double z);
 Matrix scaling(double x, double y, double z);
 Matrix rotation_x(double radians);
+Matrix rotation_y(double radians);
 #endif // MATRIX_H
 

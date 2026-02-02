@@ -499,3 +499,23 @@ TEST_CASE("The inverse of an x-rotation rotates in the opposite direction", "[ma
     REQUIRE(equal(result.z, expected.z));
     REQUIRE(equal(result.w, expected.w));
 }
+
+TEST_CASE("Rotating a point around the y axis", "[matrix]") {
+    Tuple p = point(0, 0, 1);
+    Matrix half_quarter = rotation_y(M_PI / 4);
+    Matrix full_quarter = rotation_y(M_PI / 2);
+    
+    Tuple result_half = multiply(half_quarter, p);
+    Tuple expected_half = point(std::sqrt(2) / 2, 0, std::sqrt(2) / 2);
+    REQUIRE(equal(result_half.x, expected_half.x));
+    REQUIRE(equal(result_half.y, expected_half.y));
+    REQUIRE(equal(result_half.z, expected_half.z));
+    REQUIRE(equal(result_half.w, expected_half.w));
+    
+    Tuple result_full = multiply(full_quarter, p);
+    Tuple expected_full = point(1, 0, 0);
+    REQUIRE(equal(result_full.x, expected_full.x));
+    REQUIRE(equal(result_full.y, expected_full.y));
+    REQUIRE(equal(result_full.z, expected_full.z));
+    REQUIRE(equal(result_full.w, expected_full.w));
+}

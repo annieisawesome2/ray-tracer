@@ -227,3 +227,19 @@ Matrix rotation_x(double radians) {
     result.data[2][2] = cos_r;
     return result;
 }
+
+Matrix rotation_y(double radians) {
+    // Rotation matrix around y-axis by r radians:
+    // [cos r,  0,  sin r,  0]
+    // [0,      1,  0,      0]
+    // [-sin r, 0,  cos r,  0]
+    // [0,      0,  0,      1]
+    Matrix result = identity_matrix();
+    double cos_r = std::cos(radians);
+    double sin_r = std::sin(radians);
+    result.data[0][0] = cos_r;
+    result.data[0][2] = sin_r;
+    result.data[2][0] = -sin_r;
+    result.data[2][2] = cos_r;
+    return result;
+}
