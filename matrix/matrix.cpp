@@ -259,3 +259,20 @@ Matrix rotation_z(double radians) {
     result.data[1][1] = cos_r;
     return result;
 }
+
+Matrix shearing(double x_y, double x_z, double y_x, double y_z, double z_x, double z_y) {
+    // Shearing: one coordinate moves in proportion to another.
+    // x' = x + x_y*y + x_z*z,  y' = y_x*x + y + y_z*z,  z' = z_x*x + z_y*y + z
+    // [1,   x_y, x_z, 0]
+    // [y_x, 1,   y_z, 0]
+    // [z_x, z_y, 1,   0]
+    // [0,   0,   0,   1]
+    Matrix result = identity_matrix();
+    result.data[0][1] = x_y;
+    result.data[0][2] = x_z;
+    result.data[1][0] = y_x;
+    result.data[1][2] = y_z;
+    result.data[2][0] = z_x;
+    result.data[2][1] = z_y;
+    return result;
+}

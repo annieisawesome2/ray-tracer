@@ -539,3 +539,69 @@ TEST_CASE("Rotating a point around the z axis", "[matrix]") {
     REQUIRE(equal(result_full.z, expected_full.z));
     REQUIRE(equal(result_full.w, expected_full.w));
 }
+
+TEST_CASE("A shearing transformation moves x in proportion to y", "[matrix]") {
+    Matrix transform = shearing(1, 0, 0, 0, 0, 0);
+    Tuple p = point(2, 3, 4);
+    Tuple result = multiply(transform, p);
+    Tuple expected = point(5, 3, 4);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
+
+TEST_CASE("A shearing transformation moves x in proportion to z", "[matrix]") {
+    Matrix transform = shearing(0, 1, 0, 0, 0, 0);
+    Tuple p = point(2, 3, 4);
+    Tuple result = multiply(transform, p);
+    Tuple expected = point(6, 3, 4);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
+
+TEST_CASE("A shearing transformation moves y in proportion to x", "[matrix]") {
+    Matrix transform = shearing(0, 0, 1, 0, 0, 0);
+    Tuple p = point(2, 3, 4);
+    Tuple result = multiply(transform, p);
+    Tuple expected = point(2, 5, 4);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
+
+TEST_CASE("A shearing transformation moves y in proportion to z", "[matrix]") {
+    Matrix transform = shearing(0, 0, 0, 1, 0, 0);
+    Tuple p = point(2, 3, 4);
+    Tuple result = multiply(transform, p);
+    Tuple expected = point(2, 7, 4);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
+
+TEST_CASE("A shearing transformation moves z in proportion to x", "[matrix]") {
+    Matrix transform = shearing(0, 0, 0, 0, 1, 0);
+    Tuple p = point(2, 3, 4);
+    Tuple result = multiply(transform, p);
+    Tuple expected = point(2, 3, 6);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
+
+TEST_CASE("A shearing transformation moves z in proportion to y", "[matrix]") {
+    Matrix transform = shearing(0, 0, 0, 0, 0, 1);
+    Tuple p = point(2, 3, 4);
+    Tuple result = multiply(transform, p);
+    Tuple expected = point(2, 3, 7);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
