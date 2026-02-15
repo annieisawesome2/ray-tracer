@@ -605,3 +605,43 @@ TEST_CASE("A shearing transformation moves z in proportion to y", "[matrix]") {
     REQUIRE(equal(result.z, expected.z));
     REQUIRE(equal(result.w, expected.w));
 }
+
+TEST_CASE("Individual transformations are applied in sequence", "[matrix]") {
+    Tuple p = point(1, 0, 1);
+    Matrix A = rotation_x(M_PI / 2);
+    Matrix B = scaling(5, 5, 5);
+    Matrix C = translation(10, 5, 7);
+    // Apply rotation first: p2 = A * p
+    Tuple p2 = multiply(A, p);
+    REQUIRE(equal(p2.x, 1));
+    REQUIRE(equal(p2.y, -1));
+    REQUIRE(equal(p2.z, 0));
+    REQUIRE(equal(p2.w, 1));
+    // Then scaling: p3 = B * p2
+    Tuple p3 = multiply(B, p2);
+    REQUIRE(equal(p3.x, 5));
+    REQUIRE(equal(p3.y, -5));
+    REQUIRE(equal(p3.z, 0));
+    REQUIRE(equal(p3.w, 1));
+    // Then translation: p4 = C * p3
+    Tuple p4 = multiply(C, p3);
+    REQUIRE(equal(p4.x, 15));
+    REQUIRE(equal(p4.y, 0));
+    REQUIRE(equal(p4.z, 7));
+    REQUIRE(equal(p4.w, 1));
+}
+
+TEST_CASE("Chained transformations must be applied in reverse order", "[matrix]") {
+    Tuple p = point(1, 0, 1);
+    Matrix A = rotation_x(M_PI / 2);
+    Matrix B = scaling(5, 5, 5);
+    Matrix C = translation(10, 5, 7);
+    // Composite T = C * B * A (reverse of application order)
+    Matrix T = matrixMultiply(matrixMultiply(C, B), A);
+    Tuple result = multiply(T, p);
+    Tuple expected = point(15, 0, 7);
+    REQUIRE(equal(result.x, expected.x));
+    REQUIRE(equal(result.y, expected.y));
+    REQUIRE(equal(result.z, expected.z));
+    REQUIRE(equal(result.w, expected.w));
+}
