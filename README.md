@@ -20,7 +20,7 @@ Catch2 is a header-only testing framework. You can either:
    curl -L https://github.com/catchorg/Catch2/releases/download/v3.5.0/catch.hpp -o catch2/catch.hpp
    ```
 
-2. **Or use CMake FetchContent (recommended):**
+2. **Or use CMake FetchContent:**
    The CMakeLists.txt can be updated to automatically download Catch2.
 
 ### Building the project
@@ -38,17 +38,3 @@ make
 cd build
 ./tests
 ```
-
-## Project Structure
-
-- `include/tuple.h` - Tuple class definition
-- `src/tuple.cpp` - Tuple implementation
-- `tests/test_tuple.cpp` - Test cases for tuples
-
-## Features Implemented
-
-- Tuple class with x, y, z, w components
-- Point factory function (w=1.0)
-- Vector factory function (w=0.0)
-- Floating point comparison with EPSILON
-- Test cases covering all scenarios from the book
