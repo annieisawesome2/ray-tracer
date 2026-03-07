@@ -37,3 +37,7 @@ add_test(NAME TupleTests COMMAND tests)
 add_executable(projectile src/projectile.cpp)
 target_link_libraries(projectile ray_tracer_lib)
 
+# Clock face: 12 hour positions via rotation matrix
+add_executable(clock src/clock.cpp)
+target_link_libraries(clock ray_tracer_lib)
+
