@@ -20,6 +20,7 @@ FetchContent_MakeAvailable(Catch2)
 set(SOURCES
     tuple/tuple.cpp
     matrix/matrix.cpp
+    ray/ray.cpp
 )
 
 # Create library
@@ -27,7 +28,7 @@ add_library(ray_tracer_lib ${SOURCES})
 
 # Test executable
 enable_testing()
-add_executable(tests tests/test_tuple.cpp tests/test_matrix.cpp)
+add_executable(tests tests/test_tuple.cpp tests/test_matrix.cpp tests/test_rays.cpp)
 target_link_libraries(tests ray_tracer_lib Catch2::Catch2WithMain)
 
 # Add test
