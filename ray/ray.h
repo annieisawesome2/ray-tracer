@@ -12,5 +12,6 @@ struct Ray {
 };
 
 Ray ray(const Tuple& origin, const Tuple& direction);
+Tuple position(const Ray& r, double t);
 
 #endif // RAY_H
