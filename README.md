@@ -6,8 +6,9 @@ A test-driven implementation of a 3D ray tracer in C++.
 
 - **tuple/** — Points, vectors, colors, and canvas (PPM output)
 - **matrix/** — 4×4 matrices, transforms (translation, scaling, rotation, etc.)
+- **ray/** — Rays (origin + direction) and ray utilities (e.g. computing a point at distance _t_ along a ray)
 - **src/** — Executables: projectile simulation and clock face
-- **tests/** — Catch2 unit tests for tuple and matrix
+- **tests/** — Catch2 unit tests for tuple, matrix, and rays
 
 ## Building
 
