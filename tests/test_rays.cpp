@@ -25,5 +25,13 @@ TEST_CASE("Computing a point from a distance", "[ray]") {
     REQUIRE(position(r, 1) == p2);
     REQUIRE(position(r, -1) == p3);
     REQUIRE(position(r, 2.5) == p4);
-    
+}
+
+TEST_CASE("Ray intersects sphere at two points", "[ray]") {
+    Ray r = ray(point(0, 0, -5), vector(0, 0, 1));
+    Sphere s = sphere();
+    std::vector<double> xs = intersect(s, r);
+    REQUIRE(xs.size() == 2);
+    REQUIRE(equal(xs[0], 4.0));
+    REQUIRE(equal(xs[1], 6.0));
 }
