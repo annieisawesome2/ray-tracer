@@ -2,56 +2,39 @@
 
 A test-driven implementation of a 3D ray tracer in C++.
 
-## Project structure
-
-- **tuple/** — Points, vectors, colors, and canvas (PPM output)
-- **matrix/** — 4×4 matrices, transforms (translation, scaling, rotation, etc.)
-- **ray/** — Rays (origin + direction) and ray utilities (e.g. computing a point at distance _t_ along a ray)
-- **src/** — Executables: projectile simulation and clock face
-- **tests/** — Catch2 unit tests for tuple, matrix, and rays
-
 ## Building
 
-Requirements:
-- CMake 3.14 or higher
-- C++17 compiler
-- Catch2 is fetched automatically via CMake FetchContent
+This project uses CMake for building. You'll need:
+- CMake 3.10 or higher
+- A C++17 compatible compiler
+- Catch2 (header-only testing framework)
+
+### Setting up Catch2
+
+Catch2 is a header-only testing framework. You can either:
+
+1. **Download Catch2 manually:**
+   ```bash
+   mkdir -p tests
+   cd tests
+   curl -L https://github.com/catchorg/Catch2/releases/download/v3.5.0/catch.hpp -o catch2/catch.hpp
+   ```
+
+2. **Or use CMake FetchContent:**
+   The CMakeLists.txt can be updated to automatically download Catch2.
+
+### Building the project
 
 ```bash
 mkdir build
 cd build
 cmake ..
-cmake --build .
+make
 ```
 
-## Running tests
+### Running tests
 
 ```bash
-./build/tests
+cd build
+./tests
 ```
-
-## Executables
-
-### Clock face
-
-Draws 12 hour positions on an analog clock using a y-axis rotation matrix. The clock is centered at the origin; the view is along the negative y-axis (12 o'clock at (0,0,1), 3 o'clock at (1,0,0)). Writes a PPM image with one white pixel per hour.
-
-```bash
-cmake --build build --target clock
-./build/clock
-open clock.ppm    # open the image (e.g. in Preview on Mac)
-```
-
-Output: `clock.ppm` (created in the project root when you run `./build/clock` from there).
-
-### Projectile
-
-Simulates a projectile under gravity and wind, plotting its path to a canvas.
-
-```bash
-cmake --build build --target projectile
-./build/projectile
-open projectile.ppm
-```
-
-Output: `projectile.ppm`
