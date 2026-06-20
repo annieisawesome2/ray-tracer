@@ -35,3 +35,21 @@ TEST_CASE("Ray intersects sphere at two points", "[ray]") {
     REQUIRE(equal(xs[0], 4.0));
     REQUIRE(equal(xs[1], 6.0));
 }
+
+TEST_CASE("Ray intersects sphere at a tangent", "[ray]") {
+    Ray r = ray(point(0, 1, -5), vector(0, 0, 1));
+    Sphere s = sphere();
+    std::vector<double> xs = intersect(s, r);
+
+    REQUIRE(xs.size() == 2);
+    REQUIRE(equal(xs[0], 5.0));
+    REQUIRE(equal(xs[1], 5.0));
+}
+
+TEST_CASE("Ray misses sphere", "[ray]") {
+    Ray r = ray(point(0, 2, -5), vector(0, 0, 1));
+    Sphere s = sphere();
+    std::vector<double> xs = intersect(s, r);
+
+    REQUIRE(xs.size() == 0);
+}
