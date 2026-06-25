@@ -53,3 +53,23 @@ TEST_CASE("Ray misses sphere", "[ray]") {
 
     REQUIRE(xs.size() == 0);
 }
+
+TEST_CASE("A ray originates inside a sphere", "[ray]") {
+    Ray r = ray(point(0, 0, 0), vector(0, 0, 1));
+    Sphere s = sphere();
+    std::vector<double> xs = intersect(s, r);
+
+    REQUIRE(xs.size() == 2);
+    REQUIRE(equal(xs[0], -1.0));
+    REQUIRE(equal(xs[1], 1.0));
+}
+
+TEST_CASE("A sphere is behind a ray", "[ray]") {
+    Ray r = ray(point(0, 0, 5), vector(0, 0, 1));
+    Sphere s = sphere();
+    std::vector<double> xs = intersect(s, r);
+
+    REQUIRE(xs.size() == 2);
+    REQUIRE(equal(xs[0], -6.0));
+    REQUIRE(equal(xs[1], -4.0));
+}
