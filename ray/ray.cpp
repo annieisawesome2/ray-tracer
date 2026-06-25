@@ -38,14 +38,11 @@ std::vector<double> intersect(const Sphere& sphere, const Ray& ray) {
     double t2 = (-b + sqrt_disc) / (2.0 * a);
 
     xs.push_back(t1);
-    if (!equal(t1, t2)) {
-        xs.push_back(t2);
-    }
-
-    if (xs.size() == 2 && xs[0] > xs[1]) {
+    xs.push_back(t2);
+    
+    if (xs[0] > xs[1]) {
         std::swap(xs[0], xs[1]);
     }
-
     return xs;
 }
 
