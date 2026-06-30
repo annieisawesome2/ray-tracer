@@ -2,6 +2,8 @@
 #define RAY_H
 
 #include "tuple/tuple.h"
+#include <vector>
+#include <initializer_list>
 
 struct Ray {
     Tuple origin;
@@ -19,9 +21,26 @@ struct Sphere {
         : origin(origin), radius(radius) {}
 };
 
+struct Intersection {
+    double t;
+    Sphere object;
+
+    Intersection(double t, const Sphere& object)
+        : t(t), object(object) {}
+};
+
+struct Intersections {
+    std::vector<Intersection> hits;
+
+    size_t size() const { return hits.size(); }
+    const Intersection& operator[](size_t i) const { return hits[i]; }
+};
+
 Ray ray(const Tuple& origin, const Tuple& direction);
 Tuple position(const Ray& r, double t);
 Sphere sphere();
-std::vector<double> intersect(const Sphere& sphere, const Ray& ray);
+Intersection intersection(double t, const Sphere& object);
+Intersections intersections(std::initializer_list<Intersection> xs);
+Intersections intersect(const Sphere& sphere, const Ray& ray);
 
 #endif // RAY_H

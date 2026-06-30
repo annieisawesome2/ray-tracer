@@ -16,7 +16,17 @@ Sphere sphere() {
     return Sphere(point(0, 0, 0), 1.0); 
 }
 
-std::vector<double> intersect(const Sphere& sphere, const Ray& ray) {
+Intersection intersection(double t, const Sphere& object) {
+    return Intersection(t, object);
+}
+
+Intersections intersections(std::initializer_list<Intersection> xs) {
+    Intersections result;
+    result.hits.assign(xs.begin(), xs.end());
+    return result;
+}
+
+Intersections intersect(const Sphere& sphere, const Ray& ray) {
     // Ray-sphere intersection solves the quadratic:
     //   a*t^2 + b*t + c = 0
     // where p(t) = ray.origin + t*ray.direction
@@ -27,7 +37,7 @@ std::vector<double> intersect(const Sphere& sphere, const Ray& ray) {
     double c = dot(sphere_to_ray, sphere_to_ray) - (sphere.radius * sphere.radius);
 
     double discriminant = (b * b) - (4.0 * a * c);
-    std::vector<double> xs;
+    Intersections xs;
 
     if (discriminant < 0.0) {
         return xs;
@@ -37,11 +47,11 @@ std::vector<double> intersect(const Sphere& sphere, const Ray& ray) {
     double t1 = (-b - sqrt_disc) / (2.0 * a);
     double t2 = (-b + sqrt_disc) / (2.0 * a);
 
-    xs.push_back(t1);
-    xs.push_back(t2);
-    
-    if (xs[0] > xs[1]) {
-        std::swap(xs[0], xs[1]);
+    xs.hits.push_back(intersection(t1, sphere));
+    xs.hits.push_back(intersection(t2, sphere));
+
+    if (xs.hits[0].t > xs.hits[1].t) {
+        std::swap(xs.hits[0], xs.hits[1]);
     }
     return xs;
 }
