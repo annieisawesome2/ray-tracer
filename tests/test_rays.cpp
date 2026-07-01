@@ -1,9 +1,12 @@
 #include "ray/ray.h"
 #include "tuple/tuple.h"
+#include "matrix/matrix.h"
 #include <catch2/catch_test_macros.hpp>
 
 static bool same_sphere(const Sphere& a, const Sphere& b) {
-    return a.origin == b.origin && equal(a.radius, b.radius);
+    return a.origin == b.origin &&
+           equal(a.radius, b.radius) &&
+           compareMatrix(a.transform, b.transform);
 }
 
 static bool same_intersection(const Intersection& a, const Intersection& b) {
@@ -156,3 +159,55 @@ TEST_CASE("The hit is always the lowest nonnegative intersection", "[intersectio
     REQUIRE(same_intersection(*i, i4));
 }
 
+TEST_CASE("Translating a ray", "[ray]") {
+    Ray r = ray(point(1, 2, 3), vector(0, 1, 0));
+    Matrix m = translation(3, 4, 5);
+    Ray r2 = transform(r, m);
+
+    REQUIRE(r2.origin == point(4, 6, 8));
+    REQUIRE(r2.direction == vector(0, 1, 0));
+    REQUIRE(r.origin == point(1, 2, 3));
+    REQUIRE(r.direction == vector(0, 1, 0));
+}
+
+
+TEST_CASE("Scaling a ray", "[ray]") {
+    Ray r = ray(point(1, 2, 3), vector(0, 1, 0));
+    Matrix m = scaling(2, 3, 4);
+    Ray r2 = transform(r, m);
+
+    REQUIRE(r2.origin == point(2, 6, 12));
+    REQUIRE(r2.direction == vector(0, 3, 0));
+}
+
+TEST_CASE("A sphere's default transformation", "[sphere]") {
+    Sphere s = sphere();
+    REQUIRE(compareMatrix(s.transform, identity_matrix()));
+}
+
+TEST_CASE("Changing a sphere's transformation", "[sphere]") {
+    Sphere s = sphere();
+    Matrix t = translation(2, 3, 4);
+    set_transform(s, t);
+    REQUIRE(compareMatrix(s.transform, t));
+}
+
+TEST_CASE("Intersecting a scaled sphere with a ray", "[sphere]") {
+    Ray r = ray(point(0, 0, -5), vector(0, 0, 1));
+    Sphere s = sphere();
+    set_transform(s, scaling(2, 2, 2));
+    Intersections xs = intersect(s, r);
+
+    REQUIRE(xs.size() == 2);
+    REQUIRE(equal(xs[0].t, 3.0));
+    REQUIRE(equal(xs[1].t, 7.0));
+}
+
+TEST_CASE("Intersecting a translated sphere with a ray", "[sphere]") {
+    Ray r = ray(point(0, 0, -5), vector(0, 0, 1));
+    Sphere s = sphere();
+    set_transform(s, translation(5, 0, 0));
+    Intersections xs = intersect(s, r);
+
+    REQUIRE(xs.size() == 0);
+}

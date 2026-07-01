@@ -2,6 +2,7 @@
 #define RAY_H
 
 #include "tuple/tuple.h"
+#include "matrix/matrix.h"
 #include <vector>
 #include <initializer_list>
 #include <optional>
@@ -16,10 +17,11 @@ struct Ray {
 
 struct Sphere {
     Tuple origin;
-    double radius; 
+    double radius;
+    Matrix transform;
 
-    Sphere(const Tuple& origin, double radius)
-        : origin(origin), radius(radius) {}
+    Sphere(const Tuple& origin, double radius, const Matrix& transform)
+        : origin(origin), radius(radius), transform(transform) {}
 };
 
 struct Intersection {
@@ -39,7 +41,9 @@ struct Intersections {
 
 Ray ray(const Tuple& origin, const Tuple& direction);
 Tuple position(const Ray& r, double t);
+Ray transform(const Ray& r, const Matrix& m);
 Sphere sphere();
+void set_transform(Sphere& s, const Matrix& transform);
 Intersection intersection(double t, const Sphere& object);
 Intersections intersections(std::initializer_list<Intersection> xs);
 Intersections intersect(const Sphere& sphere, const Ray& ray);
