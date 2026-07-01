@@ -48,5 +48,6 @@ Intersection intersection(double t, const Sphere& object);
 Intersections intersections(std::initializer_list<Intersection> xs);
 Intersections intersect(const Sphere& sphere, const Ray& ray);
 std::optional<Intersection> hit(const Intersections& xs);
+Tuple normal_at(const Sphere& sphere, const Tuple& world_point);
 
 #endif // RAY_H

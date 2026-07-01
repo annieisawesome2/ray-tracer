@@ -81,3 +81,10 @@ std::optional<Intersection> hit(const Intersections& xs) {
     return lowest;
 }
 
+Tuple normal_at(const Sphere& sphere, const Tuple& world_point) {
+    Tuple object_point = multiply(inverse(sphere.transform), world_point);
+    Tuple object_normal = subtract(object_point, sphere.origin);
+    Tuple world_normal = multiply(transpose(inverse(sphere.transform)), object_normal);
+    world_normal.w = 0; 
+    return normalize(world_normal);
+}
