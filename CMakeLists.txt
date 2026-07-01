@@ -38,3 +38,7 @@ add_test(NAME TupleTests COMMAND tests)
 add_executable(projectile src/projectile.cpp)
 target_link_libraries(projectile ray_tracer_lib)
 
+# Sphere silhouette executable
+add_executable(sphere src/sphere.cpp)
+target_link_libraries(sphere ray_tracer_lib)
+
