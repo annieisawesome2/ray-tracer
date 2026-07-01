@@ -88,3 +88,8 @@ Tuple normal_at(const Sphere& sphere, const Tuple& world_point) {
     world_normal.w = 0; 
     return normalize(world_normal);
 }
+Tuple reflect(const Tuple& in, const Tuple& normal) {
+    Tuple scaled_normal = normal;
+    multiply(scaled_normal, 2*dot(in, normal)); 
+    return subtract(in, scaled_normal);
+}

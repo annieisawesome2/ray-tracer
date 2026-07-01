@@ -260,3 +260,18 @@ TEST_CASE("Computing the normal on a transformed sphere", "[sphere]") {
     Tuple n = normal_at(s, point(0, v, -v));
     REQUIRE(n == vector(0, 0.97014, -0.24254));
 }
+
+TEST_CASE("Reflecting a vector approaching at 45°", "[tuple]") {
+    Tuple v = vector(1, -1, 0);
+    Tuple n = vector(0, 1, 0);
+    Tuple r = reflect(v, n);
+    REQUIRE(r == vector(1, 1, 0));
+}
+
+TEST_CASE("Reflecting a vector off a slanted surface", "[tuple]") {
+    Tuple v = vector(0, -1, 0);
+    double s = std::sqrt(2.0) / 2.0;
+    Tuple n = vector(s, s, 0);
+    Tuple r = reflect(v, n);
+    REQUIRE(r == vector(1, 0, 0));
+}

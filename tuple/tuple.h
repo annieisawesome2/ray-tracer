@@ -81,6 +81,7 @@ double magnitude(const Tuple& a);
 Tuple normalize(const Tuple& a); 
 double dot(const Tuple&a, const Tuple& b); 
 Tuple cross(const Tuple&a, const Tuple& b); 
+Tuple reflect(const Tuple& in, const Tuple& normal);
 Color blend(const Color& c1, const Color& c2);
 
 // Canvas functions
