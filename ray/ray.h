@@ -4,6 +4,7 @@
 #include "tuple/tuple.h"
 #include <vector>
 #include <initializer_list>
+#include <optional>
 
 struct Ray {
     Tuple origin;
@@ -42,5 +43,6 @@ Sphere sphere();
 Intersection intersection(double t, const Sphere& object);
 Intersections intersections(std::initializer_list<Intersection> xs);
 Intersections intersect(const Sphere& sphere, const Ray& ray);
+std::optional<Intersection> hit(const Intersections& xs);
 
 #endif // RAY_H

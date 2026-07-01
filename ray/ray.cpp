@@ -23,6 +23,8 @@ Intersection intersection(double t, const Sphere& object) {
 Intersections intersections(std::initializer_list<Intersection> xs) {
     Intersections result;
     result.hits.assign(xs.begin(), xs.end());
+    std::sort(result.hits.begin(), result.hits.end(),
+        [](const Intersection& a, const Intersection& b) { return a.t < b.t; });
     return result;
 }
 
@@ -54,5 +56,18 @@ Intersections intersect(const Sphere& sphere, const Ray& ray) {
         std::swap(xs.hits[0], xs.hits[1]);
     }
     return xs;
+}
+
+std::optional<Intersection> hit(const Intersections& xs) {
+    std::optional<Intersection> lowest;
+    for (const auto& i : xs.hits) {
+        if (i.t < 0) {
+            continue;
+        }
+        if (!lowest.has_value() || i.t < lowest->t) {
+            lowest = i;
+        }
+    }
+    return lowest;
 }
 
